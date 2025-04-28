@@ -5,7 +5,7 @@ import altair as alt
 # Fonction pour charger les données depuis GitHub
 @st.cache_data
 def load_data():
-    url = "https://raw.githubusercontent.com/TON_UTILISATEUR/TON_DEPOT/main/weekly_staph_phenotypes.csv"  # Remplacer par ton vrai lien RAW
+    url = "https://raw.githubusercontent.com/zeinabzaiter/phenotype-alerte/main/weekly_staph_phenotypes.csv"
     df = pd.read_csv(url)
     return df
 
@@ -25,7 +25,7 @@ def seuil_tukey(values):
     iqr = q3 - q1
     return q3 + 1.5 * iqr
 
-# Calcul du seuil
+# Calcul du seuil pour le phénotype choisi
 seuil = seuil_tukey(df[phenotype_choisi])
 
 # Ajouter une colonne pour indiquer les alertes
@@ -42,8 +42,8 @@ line = base.mark_line(color='blue')
 points = base.mark_circle(size=60).encode(
     color=alt.condition(
         alt.datum.Alerte,
-        alt.value('red'),  # rouge si alerte
-        alt.value('blue')  # bleu sinon
+        alt.value('red'),  # Rouge si alerte
+        alt.value('blue')  # Bleu sinon
     )
 )
 
